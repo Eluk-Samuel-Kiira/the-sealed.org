@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorecategoryRequest;
 use App\Http\Requests\UpdatecategoryRequest;
 use App\Models\category;
+use App\Models\User;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Collection;
 
 class CategoryController extends Controller
 {
@@ -15,6 +19,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        //Permission::create(['name' => 'add category']);
+        $role = Role::findById(1);
+        $permission = Permission::findById(2);
+        $role->givePermissionTo($permission);
+
         $categories = category::all();
         return view('category.index', compact('categories'));
     }

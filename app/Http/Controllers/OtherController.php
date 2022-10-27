@@ -21,4 +21,16 @@ class OtherController extends Controller
         }
     }
 
+    public function user()
+    {
+        return view('profile.user');
+    }
+
+    public function home()
+    {
+        $categories = category::where('status', 1)->orderBy('id', 'desc')->get();
+        $articles = Article::with('articles', 'authors')->where('status', 1)->orderBy('id', 'desc')->get();
+        return view('welcome', compact('articles','categories'));
+    }
+
 }

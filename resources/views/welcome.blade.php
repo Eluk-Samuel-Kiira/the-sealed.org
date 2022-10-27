@@ -47,36 +47,18 @@
             <h1 class="display-5 text-uppercase mb-4">Latest <span class="text-warning">Articles</span></h1>
         </div>
         <div class="row g-5">
-            <div class="col-lg-4 col-md-6">
-                <div class="service-item bg-white d-flex flex-column align-items-center text-center">
-                    <img class="img-fluid" src="img/man-2179326__340.jpg" alt="">
-                    <div class="px-4 pb-4">
-                        <h4 class="text-uppercase mb-3">Is Church Still Worth It?</h4>
-                        <p>Duo dolore et diam sed ipsum stet amet duo diam. Rebum amet ut amet sed erat sed sed amet magna elitr amet kasd diam duo</p>
-                        <a class="text-uppercase fw-bold" href="">Read More <i class="bi bi-arrow-right"></i></a>
+            @foreach ($articles as $article)
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item bg-white d-flex flex-column align-items-center text-center">
+                        <img class="img-fluid" src="{{ asset('storage/Article_Images')}}/{{$article->image1 }}" alt="">
+                        <div class="px-4 pb-4">
+                            <h4 class="text-uppercase mb-3">{{ $article->title }}</h4>
+                            <p>{{ $article->descriptions }}</p>
+                            <a class="text-uppercase fw-bold" href="#">Read More <i class="bi bi-arrow-right"></i></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="service-item bg-white rounded d-flex flex-column align-items-center text-center">
-                    <img class="img-fluid" src="img/cross-4364095__340.jpg" alt="">
-                    <div class="px-4 pb-4">
-                        <h4 class="text-uppercase mb-3">Does The Father Truly Love Us?</h4>
-                        <p>Duo dolore et diam sed ipsum stet amet duo diam. Rebum amet ut amet sed erat sed sed amet magna elitr amet kasd diam duo</p>
-                        <a class="text-uppercase fw-bold" href="">Read More <i class="bi bi-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="service-item bg-white rounded d-flex flex-column align-items-center text-center">
-                    <img class="img-fluid" src="img/worship-4088561__340.jpg" alt="">
-                    <div class="px-4 pb-4">
-                        <h4 class="text-uppercase mb-3">Is Anyone Worthy?</h4>
-                        <p>Duo dolore et diam sed ipsum stet amet duo diam. Rebum amet ut amet sed erat sed sed amet magna elitr amet kasd diam duo</p>
-                        <a class="text-uppercase fw-bold" href="">Read More <i class="bi bi-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
     <!-- Latest End -->
@@ -201,7 +183,7 @@
                         <a class="text-uppercase fw-bold" href="">Read More <i class="bi bi-arrow-right"></i></a>
                     </div>
                 </div>
-            </div>
+            </div>   
             <div class="col-lg-4 col-md-6">
                 <div class="bg-light">
                     <img class="img-fluid" src="img/blog-2.jpg" alt="">

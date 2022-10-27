@@ -12,9 +12,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', [App\Http\Controllers\OtherController::class, 'home'])->name('welcome');
 
 Route::middleware([
     'auth:sanctum',
@@ -29,5 +28,7 @@ Route::middleware([
     Route::resource('article', \App\Http\Controllers\ArticleController::class);
 
     Route::get('/activate/article/{id}', [App\Http\Controllers\OtherController::class, 'activate'])->name('article.activate');
+    Route::get('/details/profile', [App\Http\Controllers\OtherController::class, 'user'])->name('logged.user');
+
 
 });

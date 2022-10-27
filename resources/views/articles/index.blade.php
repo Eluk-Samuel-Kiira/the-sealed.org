@@ -44,7 +44,9 @@
                                         <th>Description</th>
                                         <th>Image2</th>
                                         <th style="width: 40px">Date</th>
-                                        <th style="width: 40px">status</th>
+                                        @if(auth()->user()->role == 1)
+                                            <th style="width: 40px">status</th>
+                                        @endif    
                                         <th style="width: 40px">Edit</th>
                                         <th style="width: 40px">Delete</th>
                                         </tr>
@@ -65,17 +67,19 @@
                                                 </td>
                                                 <td><img src="{{ asset('storage/Article_Images')}}/{{$article->image2 }}" style="max-width: 100px" /></td>
                                                 <td>{{ $article->date }}</td>
-                                                <td>
-                                                    @if($article->status == 1) 
-                                                        <a class="btn btn-success btn-sm" href="{{ route('article.activate', $article) }}">
-                                                            Activated
-                                                        </a>
-                                                    @else
-                                                        <a class="btn btn-success btn-sm" href="{{ route('article.activate', $article) }}">
-                                                            Deactivated
-                                                        </a>
-                                                    @endif
-                                                </td>
+                                                @if(auth()->user()->role == 1)
+                                                    <td>
+                                                        @if($article->status == 1) 
+                                                            <a class="btn btn-success btn-sm" href="{{ route('article.activate', $article) }}">
+                                                                Activated
+                                                            </a>
+                                                        @else
+                                                            <a class="btn btn-success btn-sm" href="{{ route('article.activate', $article) }}">
+                                                                Deactivated
+                                                            </a>
+                                                        @endif
+                                                    </td>
+                                                @endif
                                                 <td>
                                                     <span class="badge bg-sm">
                                                         <a class="btn btn-info btn-sm" href="{{ route('article.edit', $article) }}">

@@ -7,13 +7,15 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <span class="badge bg-sm">
-                        <a class="btn btn-info btn-sm" href="{{ route('category.create') }}">
-                            <i class="fas fa-pencil-alt">
-                            </i>
-                            ADD NEW CATEGORY
-                        </a>
-                    </span>
+                    @if(auth()->user()->role == 1)
+                        <span class="badge bg-sm">
+                            <a class="btn btn-info btn-sm" href="{{ route('category.create') }}">
+                                <i class="fas fa-pencil-alt">
+                                </i>
+                                ADD NEW CATEGORY
+                            </a>
+                        </span>
+                    @endif
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                             <i class="fas fa-minus"></i>
@@ -40,9 +42,11 @@
                                         <th>Category</th>
                                         <th>Description</th>
                                         <th style="width: 40px">Date</th>
-                                        <th style="width: 40px">status</th>
-                                        <th style="width: 40px">Edit</th>
-                                        <th style="width: 40px">Delete</th>
+                                        @if(auth()->user()->role == 1)
+                                            <th style="width: 40px">status</th>
+                                            <th style="width: 40px">Edit</th>
+                                            <th style="width: 40px">Delete</th>
+                                        @endif
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -52,34 +56,36 @@
                                         <td>{{ $category->category }}</td>
                                         <td>{{ $category->cat_description }}</td>
                                         <td>{{ $category->date }}</td>
-                                        <td>
-                                            @if($category->status == 1) 
-                                                <a class="btn btn-success btn-sm" href="{{ route('category.show', $category) }}">
-                                                    Activated
-                                                </a>
-                                            @else
-                                                <a class="btn btn-success btn-sm" href="{{ route('category.show', $category) }}">
-                                                    Deactivated
-                                                </a>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-sm">
-                                                <a class="btn btn-info btn-sm" href="{{ route('category.edit', $category) }}">
-                                                    <i class="fas fa-pencil-alt"></i>
-                                                    Edit
-                                                </a>
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <form method="POST" action="{{ route('category.destroy', $category) }}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-info btn-danger">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
-                                        </td>
+                                        @if(auth()->user()->role == 1)
+                                            <td>
+                                                @if($category->status == 1) 
+                                                    <a class="btn btn-success btn-sm" href="{{ route('category.show', $category) }}">
+                                                        Activated
+                                                    </a>
+                                                @else
+                                                    <a class="btn btn-success btn-sm" href="{{ route('category.show', $category) }}">
+                                                        Deactivated
+                                                    </a>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-sm">
+                                                    <a class="btn btn-info btn-sm" href="{{ route('category.edit', $category) }}">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                        Edit
+                                                    </a>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <form method="POST" action="{{ route('category.destroy', $category) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-info btn-danger">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        @endif
                                         @empty
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                             <td colspan="2"
