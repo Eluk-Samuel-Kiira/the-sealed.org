@@ -8,6 +8,7 @@ use App\Models\Article;
 use App\Models\category;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Image;
 
 class ArticleController extends Controller
 {

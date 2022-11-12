@@ -3,42 +3,7 @@
 @section('content')
 
 
-    <!-- Carousel Start -->
-    <div class="container-fluid p-0">
-        <div id="header-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img class="w-100" height="500px" src="img/church-692722__340.jpg" alt="Image">
-                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                        <div class="p-3" style="max-width: 900px;">
-                            <h1 class="display-2 text-uppercase text-white mb-md-4">If it's within your power to help a soul,  don't hesitate.</h1>
-                            <a href="" class="btn btn-primary py-md-3 px-md-5 mt-2">DONATE</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img class="w-100" height="500px" src="img/istockphoto-1321110209-170667a.jpg" alt="Image">
-                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                        <div class="p-3" style="max-width: 900px;">
-                            <h1 class="display-2 text-uppercase text-white mb-md-4">Share with us your story to Christ.</h1>
-                            <a href="" class="btn btn-primary py-md-3 px-md-5 mt-2">Contact Us</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#header-carousel"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    </div>
-    <!-- Carousel End -->
+
    
 
     <!-- Latest Start -->
@@ -53,8 +18,7 @@
                         <img class="img-fluid" src="{{ asset('storage/Article_Images')}}/{{$article->image1 }}" alt="">
                         <div class="px-4 pb-4">
                             <h4 class="text-uppercase mb-3">{{ $article->title }}</h4>
-                            <p>{{ $article->descriptions }}</p>
-                            <a class="text-uppercase fw-bold" href="#">Read More <i class="bi bi-arrow-right"></i></a>
+                            <a class="text-uppercase fw-bold" href="{{ route('description.more', $article) }}">Read More <i class="bi bi-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -265,5 +229,5 @@
         </div>
         <!-- Testimonies End -->
 
-        @endsection()
+@endsection
 

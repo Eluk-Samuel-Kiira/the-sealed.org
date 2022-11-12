@@ -14,6 +14,9 @@
 
 
 Route::get('/', [App\Http\Controllers\OtherController::class, 'home'])->name('welcome');
+Route::get('/blog/{id}', [App\Http\Controllers\OtherController::class, 'details'])->name('description.more');
+Route::post('/blog/comment', [App\Http\Controllers\OtherController::class, 'comments'])->name('comment.store');
+Route::get('/article-category/{id}', [App\Http\Controllers\OtherController::class, 'showArticles'])->name('category.more');
 
 Route::middleware([
     'auth:sanctum',
@@ -26,6 +29,7 @@ Route::middleware([
 
     Route::resource('category', \App\Http\Controllers\CategoryController::class);
     Route::resource('article', \App\Http\Controllers\ArticleController::class);
+    Route::resource('video', \App\Http\Controllers\VideoController::class);
 
     Route::get('/activate/article/{id}', [App\Http\Controllers\OtherController::class, 'activate'])->name('article.activate');
     Route::get('/details/profile', [App\Http\Controllers\OtherController::class, 'user'])->name('logged.user');

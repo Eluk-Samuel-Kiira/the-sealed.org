@@ -10,7 +10,7 @@
     <base href="{{ URL::to('/') }}">
 
     <!-- Favicon -->
-    <link href="img/thesealed.png" rel="icon">
+    <link href="img/sealed.png" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -45,7 +45,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <a href="" class="nav-item nav-link active">Home</a>
                     <a href="about.html" class="nav-item nav-link">About</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">member</a>
@@ -58,7 +58,7 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Categories</a>
                         <div class="dropdown-menu m-0">
                             @foreach ($categories as $category)
-                                <a href="#" class="dropdown-item">{{ $category->category }}</a>
+                                <a href="{{ route('category.more', $category) }}" class="dropdown-item">{{ $category->category }}</a>
                             @endforeach
                         </div>
                     </div>
@@ -69,6 +69,44 @@
         </nav>
     </div>
     <!-- Navbar End -->
+
+        <!-- Carousel Start -->
+        <div class="container-fluid p-0">
+            <div id="header-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="w-100" height="500px" src="img/church-692722__340.jpg" alt="Image">
+                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                        <div class="p-3" style="max-width: 900px;">
+                            <h1 class="display-2 text-uppercase text-white mb-md-4">If it's within your power to help a soul,  don't hesitate.</h1>
+                            <a href="" class="btn btn-primary py-md-3 px-md-5 mt-2">DONATE</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="w-100" height="500px" src="img/istockphoto-1321110209-170667a.jpg" alt="Image">
+                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                        <div class="p-3" style="max-width: 900px;">
+                            <h1 class="display-2 text-uppercase text-white mb-md-4">Share with us your story to Christ.</h1>
+                            <a href="" class="btn btn-primary py-md-3 px-md-5 mt-2">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#header-carousel"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <!-- Carousel End -->
+
     @yield('content')
 
     <!-- Footer Start -->
