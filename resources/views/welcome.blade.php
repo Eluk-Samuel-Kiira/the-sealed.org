@@ -2,10 +2,6 @@
 @section('title','THE SEALED | Christian Media')
 @section('content')
 
-
-
-   
-
     <!-- Latest Start -->
     <div class="container-fluid bg-light py-6 px-5">
         <div class="text-center mx-auto mb-5" style="max-width: 600px;">
@@ -13,15 +9,17 @@
         </div>
         <div class="row g-5">
             @foreach ($articles as $article)
-                <div class="col-lg-4 col-md-6">
-                    <div class="service-item bg-white d-flex flex-column align-items-center text-center">
-                        <img class="img-fluid" src="{{ asset('storage/Article_Images')}}/{{$article->image1 }}" alt="">
-                        <div class="px-4 pb-4">
-                            <h4 class="text-uppercase mb-3">{{ $article->title }}</h4>
-                            <a class="text-uppercase fw-bold" href="{{ route('description.more', $article) }}">Read More <i class="bi bi-arrow-right"></i></a>
+                @if($article->articles->status == 1)
+                    <div class="col-lg-4 col-md-6">
+                        <div class="service-item bg-white d-flex flex-column align-items-center text-center">
+                            <img class="img-fluid" src="{{ asset('storage/Article_Images')}}/{{$article->image1 }}" style="max-width: 300px" alt="">
+                            <div class="px-4 pb-4">
+                                <h4 class="text-uppercase mb-3">{{ $article->title }}</h4>
+                                <a class="text-uppercase fw-bold" href="{{ route('description.more', $article) }}">Read More <i class="bi bi-arrow-right"></i></a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
             @endforeach
         </div>
     </div>
@@ -35,38 +33,41 @@
                 <div class="mb-4">
                     <h1 class="display-5 text-uppercase mb-4">Send us your <span class="text-warning">Testimony</span></h1>
                 </div>
-                <p class="mb-5">Nonumy ipsum amet tempor takimata vero ea elitr. Diam diam ut et eos duo duo sed. Lorem elitr sadipscing eos et ut et stet justo, sit dolore et voluptua labore. Ipsum erat et ea ipsum magna sadipscing lorem. Sit lorem sea sanctus eos. Sanctus sit tempor dolores ipsum stet justo sit erat ea, sed diam sanctus takimata sit. Et at voluptua amet erat justo amet ea ipsum eos, eirmod accusam sea sed ipsum kasd ut.</p>
-                <a class="btn btn-primary py-3 px-5" href="">Get A Quote</a>
+                <p class="mb-5">
+                    As it is a custom for people to fine motivation for doing certain things or 
+                    believing and practicing a cause. Be encouraged with these great and insightful
+                    Christian Testimonies of how God can just turn one's life around from troubles and sorrow<br>
+                    Share you Testimony with our community, it can touch someone who might have lost all hope.
+                </p>
+                <a class="btn btn-primary py-3 px-5" href="{{ route('testimony.view') }}">View Testimonies</a>
             </div>
             <div class="col-lg-8">
                 <div class="bg-light text-center p-5">
-                    <form>
+                    @if(session('status'))
+                        <div class="alert alert-success">
+                                {{ session('status') }}
+                        </div>
+                    @endif
+                    <form method="POST" action="{{ route('testimony.store') }}" enctype="multipart/form-data">
+                        @csrf
                         <div class="row g-3">
                             <div class="col-12 col-sm-6">
-                                <input type="text" class="form-control border-0" placeholder="Your Name" style="height: 55px;">
+                                <input type="text" name="person" class="form-control border-0" placeholder="Your Name" style="height: 55px;" required>
                             </div>
                             <div class="col-12 col-sm-6">
-                                <input type="email" class="form-control border-0" placeholder="Your Email" style="height: 55px;">
+                                <input type="text" name="location" class="form-control border-0" placeholder="Your Location" style="height: 55px;" required>
                             </div>
                             <div class="col-12 col-sm-6">
-                                <div class="date" id="date" data-target-input="nearest">
-                                    <input type="text"
-                                        class="form-control border-0 datetimepicker-input"
-                                        placeholder="Call Back Date" data-target="#date" data-toggle="datetimepicker" style="height: 55px;">
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <div class="time" id="time" data-target-input="nearest">
-                                    <input type="text"
-                                        class="form-control border-0 datetimepicker-input"
-                                        placeholder="Call Back Time" data-target="#time" data-toggle="datetimepicker" style="height: 55px;">
-                                </div>
+                                <label for="photo">Share A Photo</label><br>
+                                <img id="blah" alt="" width="100" height="100" />
+                                <input class="form-control" id="photo" type="file" name="photo" 
+                                onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])"/>
                             </div>
                             <div class="col-12">
-                                <textarea class="form-control border-0" rows="5" placeholder="Message"></textarea>
+                                <textarea name="testimony" class="form-control border-0" rows="5" placeholder="Testimony" required></textarea>
                             </div>
                             <div class="col-12">
-                                <button class="btn btn-primary w-100 py-3" type="submit">Submit Request</button>
+                                <button class="btn btn-primary w-100 py-3" type="submit">Submit Testimony</button>
                             </div>
                         </div>
                     </form>
@@ -75,54 +76,6 @@
         </div>
     </div>
     <!-- Testimony End -->
-
-
-    <!-- Portfolio Start -->
-    <div class="container-fluid bg-light py-6 px-5">
-        <div class="text-center mx-auto mb-5" style="max-width: 600px;">
-            <h1 class="display-5 text-uppercase mb-4"><span class="text-warning">Activities & Portfolio</span></h1>
-        </div>
-        <div class="row g-5 portfolio-container">
-            <div class="col-xl-4 col-lg-6 col-md-6 portfolio-item first">
-                <div class="position-relative portfolio-box">
-                    <img class="img-fluid w-100" src="img/portfolio-1.jpg" alt="">
-                    <a class="portfolio-title shadow-sm" href="">
-                        <p class="h4 text-uppercase">Hope</p>
-                        <span class="text-body"><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</span>
-                    </a>
-                    <a class="portfolio-btn" href="img/portfolio-1.jpg" data-lightbox="portfolio">
-                        <i class="bi bi-plus text-white"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-6 col-md-6 portfolio-item second">
-                <div class="position-relative portfolio-box">
-                    <img class="img-fluid w-100" src="img/portfolio-2.jpg" alt="">
-                    <a class="portfolio-title shadow-sm" href="">
-                        <p class="h4 text-uppercase">Love</p>
-                        <span class="text-body"><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</span>
-                    </a>
-                    <a class="portfolio-btn" href="img/portfolio-2.jpg" data-lightbox="portfolio">
-                        <i class="bi bi-plus text-white"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-6 col-md-6 portfolio-item second">
-                <div class="position-relative portfolio-box">
-                    <img class="img-fluid w-100" src="img/portfolio-6.jpg" alt="">
-                    <a class="portfolio-title shadow-sm" href="">
-                        <p class="h4 text-uppercase">Faith</p>
-                        <span class="text-body"><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</span>
-                    </a>
-                    <a class="portfolio-btn" href="img/portfolio-6.jpg" data-lightbox="portfolio">
-                        <i class="bi bi-plus text-white"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Portfolio End -->
-
 
     <!-- Blog Start -->
     <div class="container-fluid py-6 px-5">
@@ -187,47 +140,6 @@
         </div>
     </div>
     <!-- Blog End -->
-    
-
-        <!-- Testimonies Start -->
-        <div class="container-fluid bg-light py-6 px-5">
-            <div class="text-center mx-auto mb-5" style="max-width: 600px;">
-                <h1 class="display-5 text-uppercase mb-4">Your <span class="text-warning">Testimonies</span></h1>
-            </div>
-            <div class="row g-5">
-                <div class="col-lg-4 col-md-6">
-                    <div class="service-item bg-white d-flex flex-column align-items-center text-center">
-                        <img class="img-fluid" src="img/man-2179326__340.jpg" alt="">
-                        <div class="px-4 pb-4">
-                            <h4 class="text-uppercase mb-3">Jessy</h4>
-                            <p>Duo dolore et diam sed ipsum stet amet duo diam. Rebum amet ut amet sed erat sed sed amet magna elitr amet kasd diam duo</p>
-                            <a class="text-uppercase fw-bold" href="">Read More <i class="bi bi-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="service-item bg-white rounded d-flex flex-column align-items-center text-center">
-                        <img class="img-fluid" src="img/cross-4364095__340.jpg" alt="">
-                        <div class="px-4 pb-4">
-                            <h4 class="text-uppercase mb-3">Bob Martin</h4>
-                            <p>Duo dolore et diam sed ipsum stet amet duo diam. Rebum amet ut amet sed erat sed sed amet magna elitr amet kasd diam duo</p>
-                            <a class="text-uppercase fw-bold" href="">Read More <i class="bi bi-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="service-item bg-white rounded d-flex flex-column align-items-center text-center">
-                        <img class="img-fluid" src="img/worship-4088561__340.jpg" alt="">
-                        <div class="px-4 pb-4">
-                            <h4 class="text-uppercase mb-3">Wilson</h4>
-                            <p>Duo dolore et diam sed ipsum stet amet duo diam. Rebum amet ut amet sed erat sed sed amet magna elitr amet kasd diam duo</p>
-                            <a class="text-uppercase fw-bold" href="">Read More <i class="bi bi-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Testimonies End -->
 
 @endsection
 

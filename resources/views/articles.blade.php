@@ -1,5 +1,5 @@
 @extends('layouts.landingpage')
-@section('title','THE SEALED | Blog')
+@section('title','THE SEALED | Articles')
 @section('content')
 
     <!-- Articles under each category starts  -->

@@ -9,6 +9,7 @@ use App\Models\category;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Image;
+use File;
 
 class ArticleController extends Controller
 {
@@ -137,6 +138,18 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         $article->delete();
+        $fileloc1 = 'app/public/Article_Images/'.$article->image1;
+        $filename1 = storage_path($fileloc1);
+
+        $fileloc = 'app/public/Article_Images/'.$article->image2;
+        $filename = storage_path($fileloc);
+
+        if(File::exists($filename1)) {
+            File::delete($filename1);
+        }
+        if(File::exists($filename)) {
+            File::delete($filename);
+        }
         return redirect()->back()->with('status', 'The Article Has Been Deleted Successfully');
     }
 

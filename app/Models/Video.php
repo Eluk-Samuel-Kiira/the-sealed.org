@@ -11,4 +11,14 @@ class Video extends Model
     public $timestamps=false;
 
     protected $fillable = ['category_id','author','video','title'];
+
+    public function videos()
+    {
+        return $this->belongsTo(category::class, 'category_id');
+    }
+
+    public function authorz()
+    {
+        return $this->belongsTo(User::class, 'author');
+    }
 }

@@ -1,5 +1,5 @@
 @extends('admin.layout')
-@section('title','Dashboard | Video')
+@section('title','Dashboard | Videos')
 @section('content')
 
     <!-- Info contents -->
@@ -47,14 +47,56 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        
+                                        @forelse($videos_post as $video)
+                                            @if($video->videos->status == 1)
+                                                <tr>
+                                                <td>{{ $video->id }}</td>
+                                                <td>{{ $video->videos->category }}</td>
+                                                <td>{{ $video->authorz->name }}</td>
+                                                <td>{{ $video->title }}</td>
+                                                <td><a class="btn btn-primary btn-sm" href="{{ route('video.show', $video) }}">
+                                                    <i class="fas fa-folder"></i>
+                                                        View
+                                                    </a>
+                                                </td>
+                                                <td>{{ $video->date }}</td>
+                                                <td>
+                                                    @if($video->status == 1) 
+                                                        <a class="btn btn-success btn-sm" href="{{ route('video.activate', $video) }}">
+                                                            Activated
+                                                        </a>
+                                                    @else
+                                                        <a class="btn btn-success btn-sm" href="{{ route('video.activate', $video) }}">
+                                                            Deactivated
+                                                        </a>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <form method="POST" action="{{ route('video.destroy', $video) }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-info btn-danger">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                                @else
+                                            @endif    
+                                        @empty
+                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <td colspan="2"
+                                                    class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                                                    {{ __('No Video found') }}
+                                                </td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
-
+                
             </div>
         </div>
     </div>

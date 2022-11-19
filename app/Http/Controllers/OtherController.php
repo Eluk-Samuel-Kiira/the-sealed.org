@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\category;
 use App\Models\Comment;
+use App\Models\Video;
+use App\Models\Testimony;
+use File;
 
 use Illuminate\Http\Request;
 
@@ -31,7 +34,7 @@ class OtherController extends Controller
     public function home()
     {
         $categories = category::where('status', 1)->orderBy('id', 'desc')->get();
-        $articles = Article::with('articles', 'authors')->where('status', 1)->orderBy('id', 'desc')->get();
+        $articles = Article::with('articles', 'authors')->where('status', 1)->orderBy('id', 'desc')->limit(6)->get();
         return view('welcome', compact('articles','categories'));
     }
 
@@ -63,6 +66,81 @@ class OtherController extends Controller
         $category = category::where('id', $request->id)->first();
         $articles = Article::where('category_id', $request->id)->where('status', 1)->get();
         return view('articles', compact('categories','category','articles')); 
+    }
+
+    public function activate_video(Request $req)
+    {
+        $video = Video::where('id', $req->id)->first();
+        if($video->status == 1) {
+            Video::where('id', $video->id)->update(['status' => 0]);
+            return redirect()->back()->with('status', 'The Video Has Been Deactivated Successfully');
+        }else {
+            Video::where('id', $video->id)->update(['status' => 1]);
+            return redirect()->back()->with('status', 'The Video Has Been Activated Successfully');
+        }
+    }
+
+    public function display_videos()
+    {
+        $categories = category::where('status', 1)->orderBy('id', 'desc')->get();
+        $videos = Video::where('status',1)->orderBy('id','desc')->get();
+        return view('videos.videoplay', compact('videos','categories'));
+    }
+
+    public function store_testimony(Request $request)
+    {
+        $person = $request->person;
+        $location = $request->location;
+        $testimony = $request->testimony;
+        $capt = new Testimony();
+
+        $photo = $request->file('photo');
+        if($photo != null) {
+            $imageName = time().'.'.$photo->extension();
+            $photo->move(storage_path('app/public/Testimony_Images'),$imageName);
+            $capt->photo = $imageName;
+        }
+
+        $capt->person = $person;
+        $capt->location = $location;
+        $capt->testimony = $testimony;
+        $capt->save();
+        return redirect()->back()->with('status', 'Testimony Shared Successfully');;
+    }
+
+    public function adminTestimony()
+    {
+        $testimonies = Testimony::all();
+        return view('testimonies.index', compact('testimonies'));
+    }
+
+
+    public function deleteTestimony(Request $request)
+    {
+        $testimony = Testimony::findOrFail($request->id);
+        $testimony->delete();
+
+        $fileloc = 'app/public/Testimony_Images/'.$testimony->photo;
+        $filename = storage_path($fileloc);
+
+        if(File::exists($filename)) {
+            File::delete($filename);
+        }
+        return redirect()->back()->with('status', 'The Testimony Has Been Deleted Successfully');
+    }
+
+    public function view_testimony()
+    {
+        $categories = category::where('status', 1)->orderBy('id', 'desc')->get();
+        $testimonies = Testimony::orderBy('id', 'desc')->limit(12)->get();
+        return view('testimonies.view', compact('testimonies','categories'));
+    }
+
+    public function show_testimony(Request $request)
+    {
+        $categories = category::where('status', 1)->orderBy('id', 'desc')->get();
+        $testimony = Testimony::where('id', $request->id)->first();
+        return view('testimonies.show', compact('testimony','categories'));
     }
 
 }

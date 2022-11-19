@@ -78,8 +78,8 @@
                     <img class="w-100" height="500px" src="img/church-692722__340.jpg" alt="Image">
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <div class="p-3" style="max-width: 900px;">
-                            <h1 class="display-2 text-uppercase text-white mb-md-4">If it's within your power to help a soul,  don't hesitate.</h1>
-                            <a href="" class="btn btn-primary py-md-3 px-md-5 mt-2">DONATE</a>
+                            <h1 class="display-2 text-uppercase text-white mb-md-4">Heart Warming Videos.</h1>
+                            <a href="{{ route('video.blog') }}" class="btn btn-primary py-md-3 px-md-5 mt-2">VIDEOS</a>
                         </div>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
                     <img class="w-100" height="500px" src="img/istockphoto-1321110209-170667a.jpg" alt="Image">
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <div class="p-3" style="max-width: 900px;">
-                            <h1 class="display-2 text-uppercase text-white mb-md-4">Share with us your story to Christ.</h1>
+                            <h1 class="display-2 text-uppercase text-white mb-md-4">Share With Us Your Bible Questions.</h1>
                             <a href="" class="btn btn-primary py-md-3 px-md-5 mt-2">Contact Us</a>
                         </div>
                     </div>

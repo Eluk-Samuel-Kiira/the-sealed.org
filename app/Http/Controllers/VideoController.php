@@ -6,6 +6,7 @@ use App\Http\Requests\StoreVideoRequest;
 use App\Http\Requests\UpdateVideoRequest;
 use App\Models\Video;
 use App\Models\category;
+use File;
 
 class VideoController extends Controller
 {
@@ -16,7 +17,8 @@ class VideoController extends Controller
      */
     public function index()
     {
-        return view('videos.index');
+        $videos_post = Video::with('videos', 'authorz')->get();
+        return view('videos.index', compact('videos_post'));
     }
 
     /**
@@ -53,6 +55,9 @@ class VideoController extends Controller
         $capt->title = $title;
         $capt->category_id = $category_id;
         $capt->save();
+
+        $videos_post = Video::with('videos', 'authorz')->get();
+        return view('videos.index', compact('videos_post'))->with('status', 'New Video Has Been Posted Successfully');
     }
 
     /**
@@ -63,7 +68,7 @@ class VideoController extends Controller
      */
     public function show(Video $video)
     {
-        //
+        return view('videos.show', compact('video'));
     }
 
     /**
@@ -72,9 +77,9 @@ class VideoController extends Controller
      * @param  \App\Models\Video  $video
      * @return \Illuminate\Http\Response
      */
-    public function edit(Video $video)
+    public function edit(Request $req)
     {
-        //
+        
     }
 
     /**
@@ -97,6 +102,13 @@ class VideoController extends Controller
      */
     public function destroy(Video $video)
     {
-        //
+        $video->delete();
+        $fileloc = 'app/public/Video/'.$video->video;
+        $filename = storage_path($fileloc);
+
+        if(File::exists($filename)) {
+            File::delete($filename);
+        }
+        return redirect()->back()->with('status', 'The Video Has Been Deleted Successfully');
     }
 }

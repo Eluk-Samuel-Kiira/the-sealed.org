@@ -50,7 +50,7 @@
             </div>
             
             <div class="form-group">
-                <label for="article_description">Category Description</label>
+                <label for="article_description">Article Description</label>
                 <textarea class="form-control" id="descriptions" name="descriptions">
                 {{ $article->descriptions }}
                 </textarea>

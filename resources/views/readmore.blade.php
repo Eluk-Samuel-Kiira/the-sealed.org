@@ -1,5 +1,5 @@
 @extends('layouts.landingpage')
-@section('title','THE SEALED | Blog')
+@section('title','THE SEALED | Articles')
 @section('content')
 
     <!-- Blog Start -->
@@ -8,10 +8,10 @@
             <div class="col-lg-8">
                 <!-- Blog Detail Start -->
                 <div class="mb-5">
-                    <img class="img-fluid w-60 rounded mb-5" src="{{ asset('storage/Article_Images')}}/{{$article->image1 }}" alt="">
+                    <img class="img-fluid w-60 rounded mb-5" src="{{ asset('storage/Article_Images')}}/{{$article->image1 }}" style="max-width: 400px" alt="">
                     <h1 class="text-uppercase mb-4">{{ $article->title }}</h1>
                     <p>{{ $article->descriptions }}</p>
-                    <img class="img-fluid w-60 rounded mb-5" src="{{ asset('storage/Article_Images')}}/{{$article->image2 }}" alt="">
+                    <img class="img-fluid w-60 rounded mb-5" src="{{ asset('storage/Article_Images')}}/{{$article->image2 }}" style="max-width: 400px" alt="">
                     <h6>Author: {{ $article->authors->name }} <small><i> --{{ $article->date }}</i></small></h6>
                 </div>
                 <!-- Blog Detail End -->
@@ -71,25 +71,17 @@
                     <h3 class="text-uppercase mb-4">Recent Post</h3>
                     <div class="bg-light p-4">
                         @foreach ($posts as $post)
-                            <div class="d-flex mb-3">
-                                <img class="img-fluid" src="{{ asset('storage/Article_Images')}}/{{$post->image1 }}" style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                                <a href="{{ route('description.more', $post) }}" class="h6 d-flex align-items-center bg-white text-uppercase px-3 mb-0">{{ $post->title }}
-                                </a>
-                            </div>
+                            @if($post->articles->status == 1)
+                                <div class="d-flex mb-3">
+                                    <img class="img-fluid" src="{{ asset('storage/Article_Images')}}/{{$post->image1 }}" style="width: 100px; height: 100px; object-fit: cover;" alt="">
+                                    <a href="{{ route('description.more', $post) }}" class="h6 d-flex align-items-center bg-white text-uppercase px-3 mb-0">{{ $post->title }}
+                                    </a>
+                                </div>
+                            @endif
                         @endforeach
                     </div>
                 </div>
                 <!-- Recent Post End -->
-
-                <!-- Plain Text Start -->
-                <div>
-                    <h3 class="text-uppercase mb-4">Plain Text</h3>
-                    <div class="bg-light rounded text-center" style="padding: 30px;">
-                        <p>Vero sea et accusam justo dolor accusam lorem consetetur, dolores sit amet sit dolor clita kasd justo, diam accusam no sea ut tempor magna takimata, amet sit et diam dolor ipsum amet diam</p>
-                        <a href="" class="btn btn-primary py-2 px-4">Read More</a>
-                    </div>
-                </div>
-                <!-- Plain Text End -->
             </div>
             <!-- Sidebar End -->
         </div>
