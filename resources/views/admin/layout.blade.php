@@ -223,9 +223,17 @@
             </li>
             <li class="nav-item">
                 <a href="{{ route('testimony.person') }}" class="nav-link">
-                  <i class="nav-icon fas fa-edit"></i>
+                  <i class="nav-icon fas fa-circle"></i>
                   <p>
                       Testimonies
+                  </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('news.index') }}" class="nav-link">
+                  <i class="fas fa-bars"></i>
+                  <p>
+                      Featured News
                   </p>
                 </a>
             </li>
@@ -334,10 +342,10 @@
 
   <!-- Main Footer -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-    All rights reserved.
+    <strong>Copyright &copy; 2022-2023 <a href="/">the-sealed.org</a>. </strong>
+     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.2.0
+      <b>Version</b> 1.0.0
     </div>
   </footer>
 </div>

@@ -6,9 +6,12 @@ use App\Models\category;
 use App\Models\Comment;
 use App\Models\Video;
 use App\Models\Testimony;
+use App\Models\News;
+use App\Models\Visitor;
 use File;
-
 use Illuminate\Http\Request;
+
+
 
 class OtherController extends Controller
 {
@@ -25,18 +28,23 @@ class OtherController extends Controller
         }
     }
 
+    public function activate_news(Request $req)
+    {
+        $news = News::where('id', $req->id)->first();
+        if($news->status == 1) {
+            News::where('id', $news->id)->update(['status' => 0]);
+            return redirect()->back()->with('status', 'The Featured News Has Been Deactivated Successfully');
+        }else {
+            News::where('id', $news->id)->update(['status' => 1]);
+            return redirect()->back()->with('status', 'The Featured News Has Been Activated Successfully');
+        }
+    } 
+
     public function user()
     {
         return view('profile.user');
     }
     
-
-    public function home()
-    {
-        $categories = category::where('status', 1)->orderBy('id', 'desc')->get();
-        $articles = Article::with('articles', 'authors')->where('status', 1)->orderBy('id', 'desc')->limit(6)->get();
-        return view('welcome', compact('articles','categories'));
-    }
 
     public function details(Request $request)
     {
@@ -44,7 +52,7 @@ class OtherController extends Controller
         $article = Article::where('id', $request->id)->first();
         $comments = Comment::where('article_id', $request->id)->orderBy('id', 'desc')->limit(5)->get();
         $posts = Article::where('status', 1)->orderBy('id', 'desc')->limit(3)->get();
-        return view('readmore', compact('article','categories','comments','posts'));
+        return view('articles.readmore', compact('article','categories','comments','posts'));
     }
 
     public function comments(Request $request)
@@ -143,4 +151,11 @@ class OtherController extends Controller
         return view('testimonies.show', compact('testimony','categories'));
     }
 
+    public function news_details(Request $request)
+    {
+        $categories = category::where('status', 1)->orderBy('id', 'desc')->get();
+        $news = News::where('id', $request->id)->first();
+        $posts = News::where('status', 1)->orderBy('id', 'desc')->limit(10)->get();
+        return view('news.readmore', compact('news','categories','posts'));
+    }
 }
