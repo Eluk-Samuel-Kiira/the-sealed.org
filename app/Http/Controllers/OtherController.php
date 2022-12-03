@@ -48,11 +48,10 @@ class OtherController extends Controller
 
     public function details(Request $request)
     {
-        $categories = category::where('status', 1)->orderBy('id', 'desc')->get();
         $article = Article::where('id', $request->id)->first();
         $comments = Comment::where('article_id', $request->id)->orderBy('id', 'desc')->limit(5)->get();
         $posts = Article::where('status', 1)->orderBy('id', 'desc')->limit(3)->get();
-        return view('articles.readmore', compact('article','categories','comments','posts'));
+        return view('articles.readmore', compact('article','comments','posts'));
     }
 
     public function comments(Request $request)
@@ -70,10 +69,9 @@ class OtherController extends Controller
 
     public function showArticles(Request $request)
     {
-        $categories = category::where('status', 1)->orderBy('id', 'desc')->get();
         $category = category::where('id', $request->id)->first();
         $articles = Article::where('category_id', $request->id)->where('status', 1)->get();
-        return view('articles', compact('categories','category','articles')); 
+        return view('articles', compact('category','articles')); 
     }
 
     public function activate_video(Request $req)
@@ -90,9 +88,8 @@ class OtherController extends Controller
 
     public function display_videos()
     {
-        $categories = category::where('status', 1)->orderBy('id', 'desc')->get();
         $videos = Video::where('status',1)->orderBy('id','desc')->get();
-        return view('videos.videoplay', compact('videos','categories'));
+        return view('videos.videoplay', compact('videos'));
     }
 
     public function store_testimony(Request $request)
@@ -139,23 +136,20 @@ class OtherController extends Controller
 
     public function view_testimony()
     {
-        $categories = category::where('status', 1)->orderBy('id', 'desc')->get();
         $testimonies = Testimony::orderBy('id', 'desc')->limit(12)->get();
-        return view('testimonies.view', compact('testimonies','categories'));
+        return view('testimonies.view', compact('testimonies'));
     }
 
     public function show_testimony(Request $request)
     {
-        $categories = category::where('status', 1)->orderBy('id', 'desc')->get();
         $testimony = Testimony::where('id', $request->id)->first();
-        return view('testimonies.show', compact('testimony','categories'));
+        return view('testimonies.show', compact('testimony'));
     }
 
     public function news_details(Request $request)
     {
-        $categories = category::where('status', 1)->orderBy('id', 'desc')->get();
         $news = News::where('id', $request->id)->first();
         $posts = News::where('status', 1)->orderBy('id', 'desc')->limit(10)->get();
-        return view('news.readmore', compact('news','categories','posts'));
+        return view('news.readmore', compact('news','posts'));
     }
 }

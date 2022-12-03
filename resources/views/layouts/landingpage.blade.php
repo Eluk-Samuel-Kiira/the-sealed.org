@@ -154,7 +154,7 @@
     <div class="container-fluid bg-dark bg-light-radial text-white border-top border-warning px-0">
         <div class="d-flex flex-column flex-md-row justify-content-between">
             <div class="py-4 px-5 text-center text-md-start">
-                <p class="mb-0">&copy; <a class="text-warning" href="#">thesealed.org</a> | All Rights Reserved.</p>
+                <p class="mb-0">&copy; <a class="text-warning" href="#">thesealed.org {{ date('Y') }}</a> | All Rights Reserved.</p>
             </div>
             <div class="py-4 px-5 bg-primary footer-shape position-relative text-center text-md-end">
                 <p class="mb-0">Powered by <a class="text-dark" href="">CypherLink</a></p>

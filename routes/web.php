@@ -12,6 +12,12 @@
 |
 */
 use App\Http\Controllers;
+use App\Models\Visitor;
+use App\Models\User;
+use App\Models\Comment;
+use App\Models\Article;
+use Stevebauman\Location\Facades\Location;
+use DB;
 
 Route::get('/', [App\Http\Controllers\GeneralController::class, 'home'])->name('welcome');
 Route::get('/blog/{id}', [App\Http\Controllers\OtherController::class, 'details'])->name('description.more');
@@ -33,7 +39,14 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        $users = User::count();
+        $visitor_details = Visitor::count();
+        $comment = Comment::count();
+        $session = DB::table('sessions')->count();
+        $approve = Article::with('authors')->where('status', 0)->get();
+        $article_count = Article::where('status', 0)->count();
+        return view('dashboard', compact('visitor_details', 'users', 'comment', 'session','approve',
+        'article_count'));
     })->name('dashboard');
 
     Route::resource('category', \App\Http\Controllers\CategoryController::class);
@@ -48,5 +61,6 @@ Route::middleware([
     Route::get('/persons/testimony', [App\Http\Controllers\OtherController::class, 'adminTestimony'])->name('testimony.person');
     Route::delete('/destory/testimony/{id}', [App\Http\Controllers\OtherController::class, 'deleteTestimony'])->name('testimony.destroy');
 
+    //statistics
 
 });

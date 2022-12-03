@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\category;
 use App\Models\News;
 use Request;
+use Stevebauman\Location\Facades\Location;
 
 
 class GeneralController extends Controller
@@ -14,18 +15,19 @@ class GeneralController extends Controller
 
     public function home()
     {
+        $visited_time = now()->format('H:i:s');
+        $visited_date = now()->format('Y-m-d');
         $ip = Request::getClientIp();
-        $visited_date = Date("Y-m-d:H:i:s");
-        $vistor = Visitor::where('ip', $ip)->updateOrCreate(['ip' => $ip, 'visited_date' => $visited_date],[
-            'ip' => $ip,
-            'visited_date' => $visited_date
-        ]);
-        $vistor->increment('visits');
-        
 
-        $categories = category::where('status', 1)->orderBy('id', 'desc')->get();
+        $data = Location::get($ip);
+        $increase = Visitor::where('ip', $ip)->value('visits');
+        $increase = $increase+1;
+        $vistor = Visitor::updateOrInsert(['ip' => $ip],[
+            'visits' => $increase, 'visited_time' => $visited_time, 'visited_date' => $visited_date
+        ]);
+        
         $articles = Article::with('articles', 'authors')->where('status', 1)->orderBy('id', 'desc')->limit(6)->get();
         $news = News::where('status', 1)->orderBy('id', 'desc')->limit(6)->get();
-        return view('welcome', compact('articles','categories','news'));
+        return view('welcome', compact('articles','news'));
     }
 }

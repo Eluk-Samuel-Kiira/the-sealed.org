@@ -25,7 +25,6 @@
     </div>
     <!-- Latest End -->
 
-
     <!-- Testimony Start -->
     <div class="container-fluid py-6 px-5">
         <div class="row gx-5">

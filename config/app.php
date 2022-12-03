@@ -199,6 +199,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
+        Stevebauman\Location\LocationServiceProvider::class,
+        App\Providers\MasterViewServicerProvider::class,
 
     ],
 
@@ -215,6 +217,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        'Location' => 'Stevebauman\Location\Facades\Location',
         'Image' => 'Intervention\Image\Facades\Image'
     ])->toArray(),
 
