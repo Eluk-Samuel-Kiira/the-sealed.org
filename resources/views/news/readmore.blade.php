@@ -18,7 +18,6 @@
 
             <!-- Sidebar Start -->
             <div class="col-lg-4">
-
                 <!-- Recent Post Start -->
                 <div class="mb-5">
                     <h3 class="text-uppercase mb-4">Recent Posts</h3>

@@ -45,7 +45,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
-                    <a href="" class="nav-item nav-link active">Home</a>
+                    <a href="" class="nav-item nav-link">Home</a>
                     <a href="{{ route('about.us') }}" class="nav-item nav-link">About Us</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">member</a>

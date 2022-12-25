@@ -57,7 +57,8 @@ class StatisticsController extends Controller
     public function view_aboutus()
     {
         $about = DB::table('aboutus')->where('id', 1)->get();
-        return view('about_us.viewus', compact('about'));
+        $members = DB::table('users')->get();
+        return view('about_us.viewus', compact('about','members'));
     }
 
     public function system_users()

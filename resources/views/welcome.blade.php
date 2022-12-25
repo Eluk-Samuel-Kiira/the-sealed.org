@@ -5,7 +5,7 @@
     <!-- Latest Start -->
     <div class="container-fluid bg-light py-6 px-5">
         <div class="text-center mx-auto mb-5" style="max-width: 600px;">
-            <h1 class="display-5 text-uppercase mb-4">Latest <span class="text-warning">Articles</span></h1>
+            <h1 class="display-5 text-uppercase mb-4">Latest <span style="color:#C39B14;">Articles</span></h1>
         </div>
         <div class="row g-5">
             @foreach ($articles as $article)
@@ -30,7 +30,7 @@
         <div class="row gx-5">
             <div class="col-lg-4 mb-5 mb-lg-0">
                 <div class="mb-4">
-                    <h1 class="display-5 text-uppercase mb-4">Send us your <span class="text-warning">Testimony</span></h1>
+                    <h1 class="display-5 text-uppercase mb-4">Send us your <span style="color:#C39B14;">Testimony</span></h1>
                 </div>
                 <p class="mb-5">
                     As it is a custom for people to fine motivation for doing certain things or 
@@ -79,7 +79,7 @@
     <!-- Blog Start -->
     <div class="container-fluid py-6 px-5">
         <div class="text-center mx-auto mb-5" style="max-width: 600px;">
-            <h1 class="display-5 text-uppercase mb-4"><span class="text-warning">News & Features</span></h1>
+            <h1 class="display-5 text-uppercase mb-4"><span style="color:#C39B14;">News & Features</span></h1>
         </div>
         <div class="row g-5">
             @foreach ($news as $news)
