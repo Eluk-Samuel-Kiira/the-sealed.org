@@ -6,7 +6,6 @@ use App\Models\Article;
 use App\Models\category;
 use App\Models\News;
 use Request;
-use Stevebauman\Location\Facades\Location;
 
 
 class GeneralController extends Controller
@@ -19,7 +18,6 @@ class GeneralController extends Controller
         $visited_date = now()->format('Y-m-d');
         $ip = Request::getClientIp();
 
-        $data = Location::get($ip);
         $increase = Visitor::where('ip', $ip)->value('visits');
         $increase = $increase+1;
         $vistor = Visitor::updateOrInsert(['ip' => $ip],[

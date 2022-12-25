@@ -17,7 +17,7 @@ use App\Models\User;
 use App\Models\Comment;
 use App\Models\Article;
 use Stevebauman\Location\Facades\Location;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 Route::get('/', [App\Http\Controllers\GeneralController::class, 'home'])->name('welcome');
 Route::get('/blog/{id}', [App\Http\Controllers\OtherController::class, 'details'])->name('description.more');
@@ -32,6 +32,10 @@ Route::get('/features/news/{id}', [App\Http\Controllers\OtherController::class, 
 Route::post('/testimony/store', [App\Http\Controllers\OtherController::class, 'store_testimony'])->name('testimony.store');
 Route::get('/testimony/view', [App\Http\Controllers\OtherController::class, 'view_testimony'])->name('testimony.view');
 Route::get('/testimony/show/{id}', [App\Http\Controllers\OtherController::class, 'show_testimony'])->name('testimony.show');
+
+// About Us
+Route::get('/about-us.html', [App\Http\Controllers\StatisticsController::class, 'view_aboutus'])->name('about.us');
+
 
 Route::middleware([
     'auth:sanctum',
@@ -61,6 +65,17 @@ Route::middleware([
     Route::get('/persons/testimony', [App\Http\Controllers\OtherController::class, 'adminTestimony'])->name('testimony.person');
     Route::delete('/destory/testimony/{id}', [App\Http\Controllers\OtherController::class, 'deleteTestimony'])->name('testimony.destroy');
 
-    //statistics
+    //statistics && about us
+
+    Route::get('/active/sessions', [App\Http\Controllers\StatisticsController::class, 'user_details'])->name('active.sessions');
+    Route::get('/aboutus/ours', [App\Http\Controllers\StatisticsController::class, 'show_about'])->name('show.about');
+    Route::get('/aboutus/edit/{id}', [App\Http\Controllers\StatisticsController::class, 'edit_about'])->name('about.edit');
+    Route::put('/aboutus/post', [App\Http\Controllers\StatisticsController::class, 'update_about'])->name('about.post');
+
+    // users
+    Route::delete('/delete/users/{id}', [App\Http\Controllers\StatisticsController::class, 'delete_users'])->name('user.destroy');
+    Route::get('/registered/users', [App\Http\Controllers\StatisticsController::class, 'system_users'])->name('show.users');
+    Route::get('/edit/users/{id}', [App\Http\Controllers\StatisticsController::class, 'edit_users'])->name('edit.users');
+    Route::put('/updating/user/{id}', [App\Http\Controllers\StatisticsController::class, 'update_user'])->name('user.update');
 
 });

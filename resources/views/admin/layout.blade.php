@@ -27,7 +27,7 @@
 
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__wobble" src="img/sealed.png" alt="AdminLTELogo" height="60" width="60">
+    <img class="animation__wobble" src="img/sealed.png" alt="the-sealedlogo" height="60" width="60">
   </div>
 
   <!-- Navbar -->
@@ -51,6 +51,11 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
             </form>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="{{ route('register') }}" class="nav-link"><i class="fas fa-pencil-alt"></i>
+            Register
+          </a>
         </li>
     </ul>
 
@@ -130,7 +135,7 @@
       <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <img src="{{ asset('storage/Profile_Images')}}/{{ auth()->user()->photo  }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <a href="/user/profile" class="d-block">{{ auth()->user()->name }}</a>
@@ -142,14 +147,16 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-            <li class="nav-item">
-                <a href="{{ route('category.index') }}" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
-                <p>
-                    Categories
-                </p>
-                </a>
-            </li>
+            @if(auth()->user()->role == 1)   
+              <li class="nav-item">
+                  <a href="{{ route('category.index') }}" class="nav-link">
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>
+                      Categories
+                  </p>
+                  </a>
+              </li>
+            @endif
             <li class="nav-item">
                 <a href="{{ route('article.index') }}" class="nav-link">
                   <i class="nav-icon fas fa-book"></i>
@@ -182,6 +189,24 @@
                   </p>
                 </a>
             </li>
+            @if(auth()->user()->role == 1)
+              <li class="nav-item">
+                  <a href="{{ route('show.about') }}" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <p>
+                        About Us
+                    </p>
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a href="{{ route('show.users') }}" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <p>
+                        Users
+                    </p>
+                  </a>
+              </li>
+            @endif
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -219,11 +244,13 @@
                 <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
 
                 <div class="info-box-content">
+                  <a href="{{ route('active.sessions') }}">
                     <span class="info-box-text">Sessions</span>
                     <span class="info-box-number">
                     {{ $session }}
                     <small></small>
                     </span>
+                  </a>  
                 </div>
                 <!-- /.info-box-content -->
                 </div>
